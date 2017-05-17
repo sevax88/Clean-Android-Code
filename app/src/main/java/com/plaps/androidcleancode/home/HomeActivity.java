@@ -27,7 +27,7 @@ public class HomeActivity extends BaseApp implements HomeView, LoaderManager.Loa
     public  Service service;
     private ProgressBar progressBar;
     private static final int LOADER_ID = 101;
-    private Presenter presenter;
+    private HomePresenter presenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class HomeActivity extends BaseApp implements HomeView, LoaderManager.Loa
         init();
 
 //        HomePresenter presenter = new HomePresenter(service, this);
-        ((HomePresenter)presenter).getCityList();
+//        ((HomePresenter)presenter).getCityList();
     }
 
     public  void renderView(){
@@ -85,26 +85,11 @@ public class HomeActivity extends BaseApp implements HomeView, LoaderManager.Loa
 
     }
 
-
-    @Override
-    public Loader<Presenter> onCreateLoader(int id, Bundle args) {
-        return new PresenterLoader<>(this, new Hom());
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Presenter> loader, Presenter presenter) {
-        this.presenter = presenter;
-    }
-
-    @Override
-    public void onLoaderReset(Loader loader) {
-        presenter = null;
-    }
-
     @Override
     protected void onStart() {
         super.onStart();
         presenter.onViewAttached(this);
+        presenter.getCityList();
     }
 
     @Override
@@ -113,4 +98,23 @@ public class HomeActivity extends BaseApp implements HomeView, LoaderManager.Loa
         super.onStop();
     }
 
+
+    @Override
+    public Loader<Presenter> onCreateLoader(int id, Bundle args) {
+        if (id == LOADER_ID) {
+            return new PresenterLoader<HomePresenter>(this, new HomePresenterFactory());
+        }else {
+            return null;
+        }
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Presenter> loader, Presenter presenter) {
+        this.presenter = (HomePresenter) presenter;
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Presenter> loader) {
+        presenter = null;
+    }
 }

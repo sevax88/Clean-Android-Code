@@ -1,15 +1,14 @@
 package com.plaps.androidcleancode;
 
 import android.content.Context;
-import android.content.Loader;
+import android.support.v4.content.Loader;
 
-import com.plaps.androidcleancode.home.HomePresenter;
 
 /**
  * Created by sebastian.muller on 17/5/2017.
  */
 
-public class PresenterLoader<T extends  Presenter> extends Loader<T> {
+public class PresenterLoader<T extends  Presenter> extends Loader {
 
     private PresenterFactory factory;
     private T presenter;

@@ -1,5 +1,7 @@
 package com.plaps.androidcleancode.home;
 
+import android.view.View;
+
 import com.plaps.androidcleancode.Presenter;
 import com.plaps.androidcleancode.models.CityListResponse;
 import com.plaps.androidcleancode.networking.NetworkError;
@@ -15,12 +17,6 @@ public class HomePresenter implements Presenter {
     private  Service service;
     private HomeView view;
     private CompositeSubscription subscriptions;
-
-    public HomePresenter(Service service, HomeView view) {
-        this.service = service;
-        this.view = view;
-        this.subscriptions = new CompositeSubscription();
-    }
 
     public HomePresenter() {
     }
@@ -50,8 +46,8 @@ public class HomePresenter implements Presenter {
     }
 
     @Override
-    public void onViewAttached(Object view) {
-
+    public void onViewAttached(HomeView view) {
+        this.view =  view;
     }
 
     @Override
