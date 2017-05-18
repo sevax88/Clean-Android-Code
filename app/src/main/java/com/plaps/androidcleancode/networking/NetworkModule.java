@@ -18,33 +18,22 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-/**
- * Created by ennur on 6/28/16.
- */
 @Module
 public class NetworkModule {
-    File cacheFile;
 
-    public NetworkModule(File cacheFile) {
-        this.cacheFile = cacheFile;
+    public NetworkModule() {
     }
+
 
     @Provides
     @Singleton
     Retrofit provideCall() {
-        Cache cache = null;
-        try {
-            cache = new Cache(cacheFile, 10 * 1024 * 1024);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(new Interceptor() {
                     @Override
                     public okhttp3.Response intercept(Chain chain) throws IOException {
                         Request original = chain.request();
-
                         // Customize the request
                         Request request = original.newBuilder()
                                 .header("Content-Type", "application/json")
@@ -58,10 +47,7 @@ public class NetworkModule {
                         return response;
                     }
                 })
-                .cache(cache)
-
                 .build();
-
 
         return new Retrofit.Builder()
                 .baseUrl(BuildConfig.BASEURL)

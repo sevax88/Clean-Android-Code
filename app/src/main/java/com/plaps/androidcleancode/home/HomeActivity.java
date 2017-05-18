@@ -23,8 +23,8 @@ import javax.inject.Inject;
 public class HomeActivity extends BaseApp implements HomeView, LoaderManager.LoaderCallbacks<Presenter> {
 
     private RecyclerView list;
-    @Inject
-    public  Service service;
+//    @Inject
+//    public  Service service;
     private ProgressBar progressBar;
     private static final int LOADER_ID = 101;
     private HomePresenter presenter;
@@ -35,7 +35,7 @@ public class HomeActivity extends BaseApp implements HomeView, LoaderManager.Loa
 
         getSupportLoaderManager().initLoader(LOADER_ID, null, this);
 
-        getDeps().inject(this);
+//        getDeps().inject(this);
 
         renderView();
         init();
@@ -70,7 +70,7 @@ public class HomeActivity extends BaseApp implements HomeView, LoaderManager.Loa
     }
 
     @Override
-    public void getityListSuccess(CityListResponse cityListResponse) {
+    public void getCityListSuccess(CityListResponse cityListResponse) {
 
         HomeAdapter adapter = new HomeAdapter(getApplicationContext(), cityListResponse.getData(),
                 new HomeAdapter.OnItemClickListener() {

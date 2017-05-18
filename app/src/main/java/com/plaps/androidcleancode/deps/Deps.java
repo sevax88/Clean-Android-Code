@@ -1,7 +1,9 @@
 package com.plaps.androidcleancode.deps;
 
 
+import com.plaps.androidcleancode.Presenter;
 import com.plaps.androidcleancode.home.HomeActivity;
+import com.plaps.androidcleancode.home.HomePresenter;
 import com.plaps.androidcleancode.networking.NetworkModule;
 
 import javax.inject.Singleton;
@@ -14,5 +16,7 @@ import dagger.Component;
 @Singleton
 @Component(modules = {NetworkModule.class,})
 public interface Deps {
-    void inject(HomeActivity homeActivity);
+//    void inject(HomeActivity homeActivity);
+void inject(HomePresenter presenter);
+
 }

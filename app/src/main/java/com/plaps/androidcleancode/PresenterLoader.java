@@ -10,17 +10,14 @@ import android.support.v4.content.Loader;
 
 public class PresenterLoader<T extends  Presenter> extends Loader {
 
-    private PresenterFactory factory;
     private T presenter;
+    private PresenterFactory<T> mfactory;
 
-    public PresenterLoader(Context context) {
+    public PresenterLoader(Context context, PresenterFactory<T> aSpecificfactory) {
         super(context);
+        this.mfactory = aSpecificfactory;
     }
 
-    public PresenterLoader(Context context, PresenterFactory factory) {
-        super(context);
-        this.factory = factory;
-    }
 
     @Override
     protected void onStartLoading() {
@@ -35,6 +32,7 @@ public class PresenterLoader<T extends  Presenter> extends Loader {
         // Create the Presenter using the Factory
 //        presenter = factory.create();
 //        presenter = new HomePresenter()
+        presenter = mfactory.create();
         // Deliver the result
         deliverResult(presenter);
     }
